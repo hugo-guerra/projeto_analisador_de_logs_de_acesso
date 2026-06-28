@@ -33,4 +33,6 @@ def ler_arquivo(logs):
     return dic_log
 
 
+def detectao(dic_log):
 
+#PROJETO PAUSADO INDETERMINADAMENTE!!!
