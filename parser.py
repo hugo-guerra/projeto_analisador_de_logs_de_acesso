@@ -5,6 +5,9 @@ def parsear_linha(linha):
     padrao = r'(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}) - - \[(.+)\] "([^ ]+) (\S+) HTTP\/1\.1" (\d+) (\d+)'
 
     dic_parser = re.search(padrao, linha)
+    
+    if dic_parser is None:
+        return None
 
     resultado = {
         "ip": dic_parser.group(1),
@@ -16,5 +19,18 @@ def parsear_linha(linha):
     }
     return resultado
 
-linha = '192.168.1.5 - - [26/Jun/2026:10:24:01 +0000] "POST /login HTTP/1.1" 401 512'
-print(parsear_linha(linha))
+def ler_arquivo(logs):
+    with open(logs, "r") as arquivo:
+
+        dic_log = []
+
+        for linha in arquivo:
+            resultado = parsear_linha(linha.strip())
+
+            if resultado is not None:
+                dic_log.append(resultado) 
+
+    return dic_log
+
+
+
